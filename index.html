@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÉpiceriePro - Votre épicerie de bureau</title>
+    <title>Epicerie</title>
     <style>
         * {
             margin: 0;
@@ -65,17 +65,76 @@
             color: #f39c12;
         }
 
-        /* Hero Section */
+        /* Hero Section avec Carrousel */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e74c3c" width="1200" height="600"/><circle fill="%23f39c12" cx="200" cy="150" r="40"/><circle fill="%2327ae60" cx="800" cy="200" r="60"/><circle fill="%233498db" cx="1000" cy="400" r="50"/></svg>');
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
             background-size: cover;
             background-position: center;
-            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             color: white;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .indicator.active {
+            background: #f39c12;
         }
 
         .hero-content h1 {
@@ -207,6 +266,78 @@
             font-size: 1.2rem;
         }
 
+        /* Images Gallery */
+        .gallery {
+            background: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+
+        .gallery-info h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            background: #ecf0f1;
+            text-align: center;
+        }
+
+        .coming-soon-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            color: #95a5a6;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon h3 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
         /* About */
         .about {
             background: white;
@@ -301,11 +432,13 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Épicerie</div>
+            <div class="logo">Epicerie</div>
             <ul class="nav-links">
                 <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#produits">Produits</a></li>
+
+                <li><a href="#creations">Créations</a></li>
+                <li><a href="#reptilien">Reptilien</a></li>
+                <li><a href="#prochainement">Prochainement</a></li>
                 <li><a href="#about">À propos</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -313,77 +446,111 @@
     </header>
 
     <section class="hero" id="accueil">
-        <div class="hero-content">
-            <h1>Bienvenue chez ÉpiceriePro</h1>
-            <p>Votre épicerie de bureau pour tous vos besoins quotidiens</p>
-            <a href="#services" class="btn">Découvrir nos services</a>
+        <div class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('images/other/wanted.png');">
+                <div class="carousel-content">
+                    <h1>Prime de 5 madeleines pour retrouver le donateur masqué</h1>
+                    <p></p>
+                    <a href="#creations" class="btn">Découvrir nos madeleines</a>
+                </div>
+            </div>
+            <div class="carousel-slide"
+                style="background-image: url('images/reptiliens/starter\ pack\ reptilien.png');">
+                <div class="carousel-content">
+                    <h1>Starter pack reptilien</h1>
+                    <p></p>
+                    <a href="#reptilien" class="btn">En savoir plus</a>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="indicator active" data-slide="0"></div>
+                <div class="indicator" data-slide="1"></div>
+            </div>
         </div>
     </section>
 
-    <section class="services" id="services">
+
+    <section class="gallery" id="creations">
         <div class="container">
-            <h2 class="section-title">Nos Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🚚</div>
-                    <h3>Livraison Express</h3>
-                    <p>Livraison rapide directement à votre bureau en moins de 2 heures</p>
+            <h2 class="section-title">Nos Créations</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/madeleines/big mac fraisier.png" alt="Madeleines artisanales"
+                        class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>Big Madeleinier</h3>
+                        <p>Double étage de plaisir gourmand qui révolutionne l'art de la dégustation</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3>Commande en Ligne</h3>
-                    <p>Commandez facilement via notre plateforme en ligne 24h/24</p>
+                <div class="gallery-item">
+                    <img src="images/madeleines/naima.png" alt="Madeleines au chocolat" class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>Création by Naïma</h3>
+                        <p>Naïma, prénom féminin arabe signifiant "douce et délicieuse" ou "douceur du paradis", inspire
+                            cette création divine composée de crème anglaise onctueuse, Nutella gourmand et noisettes
+                            croquantes sur notre madeleine signature.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">💳</div>
-                    <h3>Paiement Flexible</h3>
-                    <p>Plusieurs options de paiement pour votre convenance</p>
+                <div class="gallery-item">
+                    <img src="images/madeleines/emanuelle madfraiier.png" alt="Fraises fraîches" class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>Création by Emmanuelle</h3>
+                        <p>Un délice raffiné alliant la douceur de la crème anglaise, la fraîcheur des fraises de saison
+                            et le croquant des noisettes, le tout sublimé par les madeleines St Michel</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🎯</div>
-                    <h3>Produits Sélectionnés</h3>
-                    <p>Une sélection premium de produits de qualité</p>
+                <div class="gallery-item">
+                    <img src="images/madeleines/poc.png" alt="Madeleines aux fruits" class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>Création by Dimos</h3>
+                        <p>Le chef Dimos a mis tout son cœur dans cette création unique, un véritable "poc" culinaire
+                            qui révolutionne l'art de la pâtisserie avec une approche audacieuse et créative.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="products" id="produits">
+    <section class="gallery" id="reptilien">
         <div class="container">
-            <h2 class="section-title">Nos Produits Phares</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">☕</div>
-                    <div class="product-info">
-                        <h3>Café Premium</h3>
-                        <p>Sélection de cafés artisanaux pour booster votre journée</p>
-                        <div class="product-price">À partir de 12€</div>
+            <h2 class="section-title">Collection Reptilien - Édition Madeleine</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/reptiliens/pipeline reptilien.png" alt="Pipeline reptilien" class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>Pipeline Infernale aux Madeleines</h3>
+                        <p>bientôt au cinéma: l'histoire d'un reptilien qui n'arrive pas à configurer une pipeline
+                            Jenkins</p>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">🥪</div>
-                    <div class="product-info">
-                        <h3>Sandwichs Frais</h3>
-                        <p>Sandwichs préparés quotidiennement avec des ingrédients frais</p>
-                        <div class="product-price">À partir de 6€</div>
+                <div class="gallery-item">
+                    <img src="images/reptiliens/secte reptilerie.png" alt="Secte reptilienne" class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>La Secte Reptilienne des Madeleines</h3>
+                        <p>Révélation exclusive : cette secte dirige le monde</p>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">🍎</div>
-                    <div class="product-info">
-                        <h3>Fruits & Légumes</h3>
-                        <p>Produits frais et de saison pour une alimentation équilibrée</p>
-                        <div class="product-price">À partir de 3€</div>
+                <div class="gallery-item">
+                    <img src="images/reptiliens/starter pack reptilien.png" alt="Starter pack reptilien"
+                        class="gallery-image">
+                    <div class="gallery-info">
+                        <h3>Starter Pack Reptilien - Test Madeleine</h3>
+                        <p>Kit d'initiation complet pour identifier les reptiliens : nos crêpes-madeleines hybrides de
+                            test (les reptiliens ne peuvent pas résister à cette combinaison unique) et costume d'homme
+                            d'affaires inclus, car ils contrôlent les grands domaines économiques.</p>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">🍫</div>
-                    <div class="product-info">
-                        <h3>Snacks & Confiseries</h3>
-                        <p>Une large gamme de snacks pour vos petites faims</p>
-                        <div class="product-price">À partir de 2€</div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="coming-soon" id="prochainement">
+        <div class="container">
+            <div class="coming-soon-content">
+                <div class="coming-soon-icon">🚀</div>
+                <h3>Prochainement</h3>
+                <p>De nouvelles créations arrivent bientôt ! Restez connectés pour découvrir nos dernières innovations
+                    gourmandes.</p>
             </div>
         </div>
     </section>
@@ -393,15 +560,17 @@
             <h2 class="section-title">À Propos de Nous</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>ÉpiceriePro est née de la volonté de faciliter la vie des professionnels en leur offrant un
-                        service d'épicerie adapté à leurs besoins spécifiques.</p>
-                    <p>Nous comprenons que votre temps est précieux, c'est pourquoi nous vous proposons une solution
-                        complète de livraison de produits alimentaires et de première nécessité directement sur votre
-                        lieu de travail.</p>
-                    <p>Notre équipe sélectionne avec soin chaque produit pour vous garantir qualité et fraîcheur, tout
-                        en respectant vos contraintes horaires et budgétaires.</p>
+                    <p>L'épicerie s'est créée au fur et à mesure, avec une philosophie simple. Tout a commencé
+                        modestement avec un sachet d'1kg de madeleines, puis deux packs
+                        de 1,3kg.</p>
+                    <p>Au fil du temps, notre épicerie s'est diversifiéecomme avec les crêpes
+                        Wahoo. Notre règle d'or pour intégrer un nouveau produit dans notre gamme : le prix au kilo doit
+                        être inférieur à 5€.</p>
+                    <p>Cette approche nous permet de proposer des gourmandises accessibles tout en maintenant une
+                        qualité exceptionnelle. Chaque ajout à notre catalogue respecte cette philosophie
+                        d'accessibilité et de plaisir partagé.</p>
                 </div>
-                <div class="about-image">🏢</div>
+                <div class="about-image">🧁</div>
             </div>
         </div>
     </section>
@@ -413,22 +582,17 @@
                 <div class="contact-item">
                     <i>📍</i>
                     <h3>Adresse</h3>
-                    <p>123 Rue des Bureaux<br>75001 Paris, France</p>
-                </div>
-                <div class="contact-item">
-                    <i>📞</i>
-                    <h3>Téléphone</h3>
-                    <p>+33 1 23 45 67 89</p>
+                    <p>4 Rue Entre 2 Villes<br>59650 Villeneuve-d'Ascq</p>
                 </div>
                 <div class="contact-item">
                     <i>✉️</i>
                     <h3>Email</h3>
-                    <p>contact@epiceriepro.fr</p>
+                    <p>arein@unis.fr</p>
                 </div>
                 <div class="contact-item">
                     <i>🕒</i>
                     <h3>Horaires</h3>
-                    <p>Lun-Ven: 8h-19h<br>Sam: 9h-17h</p>
+                    <p>Lun-Ven: N'importe quand<br>Pics d'activité: 10h, 12h-14h, 16h</p>
                 </div>
             </div>
         </div>
@@ -436,7 +600,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 ÉpiceriePro. Tous droits réservés. | Votre épicerie de bureau de confiance</p>
+            <p>&copy; 2025 Madeleine & Co. Tous droits réservés. | Vos madeleines artisanales de bureau</p>
         </div>
     </footer>
 
@@ -463,6 +627,35 @@
             } else {
                 header.style.background = 'linear-gradient(135deg, #2c3e50 0%, #3498db 100%)';
             }
+        });
+
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 5000);
+
+        // Manual carousel control
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+            });
         });
     </script>
 </body>
