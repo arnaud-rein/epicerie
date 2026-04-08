@@ -80,8 +80,8 @@ nav {
 }
 
 .nav-links a:hover {
-    color: #e42525;
-    text-shadow: 1px 1px 3px rgba(228, 37, 37, .714)
+    color: #1a1a1a;
+    text-shadow: 1px 1px 3px rgba(80, 74, 74, 0.714)
 }
 
 .hero {
@@ -155,6 +155,14 @@ section {
     background: #fff
 }
 
+.products-section {
+    background: linear-gradient(135deg, rgb(216, 172, 100) 0%, #ffe8cc 100%);
+}
+
+.events-section {
+    background: #fff
+}
+
 .gallery-grid,
 .services-grid {
     display: grid;
@@ -216,7 +224,7 @@ section {
 
 .product-image {
     height: 200px;
-    background: linear-gradient(45deg, #3498db, #2ecc71);
+    background: rgba(255, 248, 237, 0.618);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -238,6 +246,199 @@ section {
 .product-price {
     color: #e74c3c;
     font-size: 1.2rem
+}
+
+.product-item {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(217, 170, 95, .2);
+    transition: .3s;
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(217, 170, 95, .35), 0 5px 15px rgba(0, 0, 0, .1)
+}
+
+.product-image-container {
+    height: 250px;
+    overflow: hidden;
+    background: #f8f9fa
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+}
+
+.product-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1
+}
+
+.product-info h3 {
+    color: #2c3e50;
+    margin-bottom: .5rem;
+    font-size: 1.2rem
+}
+
+.product-description {
+    color: #666;
+    font-size: .95rem;
+    margin-bottom: 1rem;
+    line-height: 1.4
+}
+
+.product-details {
+    margin-top: auto;
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 0;
+    font-size: .95rem
+}
+
+.detail-label {
+    color: #666;
+    font-weight: 600
+}
+
+.detail-value {
+    color: #2c3e50;
+    font-weight: 500
+}
+
+.stock-available {
+    color: #27ae60;
+    font-weight: 600
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem
+}
+
+.event-card {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(217, 170, 95, .2);
+    transition: .3s;
+    border: 1px solid #e9ecef
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(217, 170, 95, .35), 0 5px 15px rgba(0, 0, 0, .1)
+}
+
+.event-date-box {
+    background: linear-gradient(135deg, rgb(217 170 95) 0%, rgb(200 150 70) 100%);
+    color: #fff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+    min-height: 250px
+}
+
+.event-day {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1
+}
+
+.event-month {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+
+.event-details {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.event-info-item {
+    display: flex;
+    margin-bottom: 1.2rem;
+    align-items: flex-start
+}
+
+.event-info-item:last-child {
+    margin-bottom: 0
+}
+
+.event-label {
+    color: rgb(217 170 95);
+    font-weight: 700;
+    min-width: 100px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px
+}
+
+.event-value {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 500
+}
+
+.event-value a {
+    display: inline-block;
+    color: #fff;
+    background: linear-gradient(135deg, rgb(217 170 95) 0%, rgb(200 150 70) 100%);
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all .3s ease;
+    box-shadow: 0 4px 12px rgba(217, 170, 95, .3);
+    position: relative;
+    overflow: hidden
+}
+
+.event-value a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .2);
+    transition: left .3s ease
+}
+
+.event-value a:hover::before {
+    left: 100%
+}
+
+.event-value a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(217, 170, 95, .4);
+    background: linear-gradient(135deg, rgb(200 150 70) 0%, rgb(217 170 95) 100%)
 }
 
 .gallery-image {
