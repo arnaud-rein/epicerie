@@ -696,21 +696,7 @@ section {
 
 /* ── CONTACT ── */
 .contact {
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-dark) 100%);
-    position: relative;
-}
-
-.contact .section-title {
-    color: var(--brown);
-}
-
-.contact .section-divider::before,
-.contact .section-divider::after {
-    background: rgba(45, 27, 14, 0.3);
-}
-
-.contact .section-divider span {
-    color: rgba(45, 27, 14, 0.4);
+    background: var(--cream);
 }
 
 .contact-info {
@@ -722,15 +708,17 @@ section {
 .contact-item {
     text-align: center;
     padding: 2.5rem 2rem;
-    background: rgba(45, 27, 14, 0.08);
+    background: var(--white);
     border-radius: 3px;
-    border: 1px solid rgba(45, 27, 14, 0.12);
-    transition: background 0.3s, transform 0.3s;
+    border: 1px solid var(--cream-dark);
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 4px 22px var(--shadow-dark);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .contact-item:hover {
-    background: rgba(45, 27, 14, 0.15);
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 40px var(--shadow-gold), 0 4px 18px var(--shadow-dark);
 }
 
 .contact-item i {
@@ -749,8 +737,7 @@ section {
 }
 
 .contact-item p {
-    color: var(--brown);
-    opacity: 0.8;
+    color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.7;
 }
