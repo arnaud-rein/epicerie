@@ -1,20 +1,30 @@
-// ── Easter Egg 2 : Dossier Classifié (© × 3 + mot de passe) ──
+
 (function () {
-    const trigger    = document.querySelector('.footer-trigger');
-    const pwOverlay  = document.getElementById('pwOverlay');
-    const pwBox      = document.getElementById('pwBox');
-    const pwForm     = document.getElementById('pwForm');
-    const pwInput    = document.getElementById('pwInput');
-    const pwError    = document.getElementById('pwError');
-    const pwCancel   = document.getElementById('pwCancel');
+    const trigger = document.querySelector('.footer-trigger');
+    const pwOverlay = document.getElementById('pwOverlay');
+    const pwBox = document.getElementById('pwBox');
+    const pwForm = document.getElementById('pwForm');
+    const pwInput = document.getElementById('pwInput');
+    const pwError = document.getElementById('pwError');
+    const pwCancel = document.getElementById('pwCancel');
     const classified = document.getElementById('classifiedModal');
     const classClose = classified?.querySelector('.classified-close');
 
     if (!trigger || !pwOverlay || !classified) return;
 
-    const PASSWORD = 'poc';
     let triggerClicks = 0;
     let triggerTimer;
+
+    function normalizeAttempt(value) {
+        return value.trim().toLowerCase().replace(/[\s_-]+/g, '');
+    }
+
+    function forgeAccessCode() {
+        const whisper = ['p', String.fromCharCode(111)];
+        const impact = String.fromCharCode(96 + 3);
+        const mark = `${1 + 2}`;
+        return whisper[0].concat(whisper[1], impact, mark);
+    }
 
     // ── Triple clic sur © pour ouvrir le terminal ──
     trigger.addEventListener('click', () => {
@@ -46,9 +56,9 @@
     // ── Vérification du mot de passe ──
     pwForm.addEventListener('submit', e => {
         e.preventDefault();
-        const val = pwInput.value.trim().toLowerCase();
+        const val = normalizeAttempt(pwInput.value);
 
-        if (val === PASSWORD) {
+        if (val === forgeAccessCode()) {
             closePw();
             setTimeout(openClassified, 200);
         } else {
@@ -305,3 +315,47 @@ if (heroScroll) {
         heroScroll.style.opacity = window.scrollY > 80 ? '0' : '1';
     }, { passive: true });
 }
+
+// â”€â”€ About market ticker â”€â”€
+function initAboutTicker() {
+    const track = document.getElementById('aboutMarketTrack');
+    if (!track) return;
+
+    const marketData = [
+        { symbol: 'REPT', label: 'Reptilerie', price: 24.78, changePercent: 8.4, currency: 'EUR' },
+        { symbol: 'MDLN', label: 'Madeleine Prime', price: 5.0, changePercent: 3.2, currency: 'EUR' },
+        { symbol: 'WAHO', label: 'Crepes Wahoo', price: 3.84, changePercent: -1.1, currency: 'EUR' },
+        { symbol: 'GALT', label: 'Galettes St Michel', price: 4.92, changePercent: 1.7, currency: 'EUR' },
+        { symbol: 'RITA', label: 'Gaufres Rita', price: 4.35, changePercent: 0.6, currency: 'EUR' }
+    ];
+
+    function formatPrice(value, currency) {
+        return new Intl.NumberFormat('fr-FR', {
+            style: 'currency',
+            currency,
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(value);
+    }
+
+    function formatDelta(value) {
+        if (!Number.isFinite(value) || value === 0) return '0,00%';
+        const sign = value > 0 ? '+' : '';
+        return `${sign}${value.toFixed(2).replace('.', ',')}%`;
+    }
+
+    function chipMarkup(item) {
+        const trendClass = item.changePercent > 0 ? 'is-up' : item.changePercent < 0 ? 'is-down' : 'is-flat';
+        const arrow = item.changePercent > 0 ? '▲' : item.changePercent < 0 ? '▼' : '—';
+        return `<span class="about-market-chip ${trendClass}"><span class="amc-sym">${item.symbol}</span><span class="amc-lbl">${item.label}</span><span class="amc-prc">${formatPrice(item.price, item.currency)}</span><span class="amc-dlt">${arrow}&nbsp;${formatDelta(item.changePercent)}</span></span>`;
+    }
+
+    function render(items) {
+        const markup = items.map(chipMarkup).join('');
+        track.innerHTML = markup + markup;
+    }
+
+    render(marketData);
+}
+
+initAboutTicker();
