@@ -173,32 +173,21 @@
             message: 'Rémy plus reconnu'
         },
         jeremybar: {
-            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071490/jeremy_plus_evuwxj.webp',
+            image: '',
             message: 'Jeremy plus reconnu'
         },
         valentinbar: {
             image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071490/valentin_plus_jun1df.webp',
             message: 'Valentin plus reconnu'
+        },
+        lucas: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776077060/Vladimir_Putin_in_KGB_uniform_llgksa.webp',
+            message: 'Lucas reconnu'
         }
 
 
     };
-    const invalidIllustration = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
-            <defs>
-                <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-                    <stop offset="0%" stop-color="#25110f"/>
-                    <stop offset="100%" stop-color="#5f1313"/>
-                </linearGradient>
-            </defs>
-            <rect width="960" height="540" rx="28" fill="url(#bg)"/>
-            <rect x="54" y="54" width="852" height="432" rx="20" fill="none" stroke="#ffb3b3" stroke-width="8" stroke-dasharray="18 14"/>
-            <circle cx="480" cy="214" r="86" fill="#170808" stroke="#ff8d8d" stroke-width="12"/>
-            <path d="M436 170l88 88M524 170l-88 88" stroke="#ff8d8d" stroke-width="16" stroke-linecap="round"/>
-            <text x="480" y="368" text-anchor="middle" fill="#fff0f0" font-family="Arial, sans-serif" font-size="54" letter-spacing="6">INVALIDE</text>
-            <text x="480" y="426" text-anchor="middle" fill="#ffb3b3" font-family="Arial, sans-serif" font-size="26" letter-spacing="3">profil introuvable</text>
-        </svg>
-    `)}`;
+    const invalidIllustration = `https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2J0aGo5OWFnNHBtM3NwazdkdzB4bTYwOGZyMDQ3MGhhODJncjdrZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7Wiozceem6Vt2eMFxO/giphy.gif`;
 
     logo.addEventListener('click', () => {
         clearTimeout(resetTimer);
@@ -263,7 +252,7 @@
     function resetZooResult() {
         zooResult.hidden = true;
         zooResult.classList.remove('is-invalid');
-        zooResultImage.src = '';
+        zooResultImage.removeAttribute('src');
         zooResultImage.alt = '';
         zooResultMessage.textContent = '';
     }
@@ -289,6 +278,7 @@
         const normalizedName = normalizeName(zooInput.value);
         const match = zooProfiles[normalizedName];
 
+        resetZooResult();
         zooResult.hidden = false;
 
         if (match) {
@@ -331,6 +321,9 @@
             e.preventDefault();
             handleZooSubmit();
         }
+    });
+    zooInput.addEventListener('input', () => {
+        resetZooResult();
     });
 
     easterFigures?.forEach(figure => {
