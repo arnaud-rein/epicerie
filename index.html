@@ -565,50 +565,93 @@
                 <p class="easter-subtitle">Vous avez trouvé la salle secrète… Bienvenue dans les archives.</p>
             </div>
             <div class="easter-grid">
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753747154/big_mac_fraisier_nfzaop.webp"
+                    data-easter-alt="Big Madeleinier" data-easter-caption="Big Madeleinier — L'Original">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753747154/big_mac_fraisier_nfzaop.webp"
                         alt="Big Madeleinier">
                     <figcaption>Big Madeleinier — L'Original</figcaption>
                 </figure>
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753743039/poc_olwacx.webp"
+                    data-easter-alt="Création Dimos" data-easter-caption="Le Poc de Dimos">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753743039/poc_olwacx.webp"
                         alt="Création Dimos">
                     <figcaption>Le Poc de Dimos</figcaption>
                 </figure>
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753743653/processed-image_rhr1mg.webp"
+                    data-easter-alt="Café Gourmand Dorothée" data-easter-caption="Café Gourmand by Dorothée">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753743653/processed-image_rhr1mg.webp"
                         alt="Café Gourmand Dorothée">
                     <figcaption>Café Gourmand by Dorothée</figcaption>
                 </figure>
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1775649362/tamtam_d98k7u.webp"
+                    data-easter-alt="Tam Tam" data-easter-caption="Les Légendaires Tam Tam">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1775649362/tamtam_d98k7u.webp"
                         alt="Tam Tam">
                     <figcaption>Les Légendaires Tam Tam</figcaption>
                 </figure>
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1775649363/galette_muzx4g.webp"
+                    data-easter-alt="Galettes St Michel" data-easter-caption="Les Galettes de Maxime">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1775649363/galette_muzx4g.webp"
                         alt="Galettes St Michel">
                     <figcaption>Les Galettes de Maxime</figcaption>
                 </figure>
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1775649619/rita_p2zgg2.webp"
+                    data-easter-alt="Gaufres Rita" data-easter-caption="Les Gaufres Rita">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1775649619/rita_p2zgg2.webp"
                         alt="Gaufres Rita">
                     <figcaption>Les Gaufres Rita</figcaption>
                 </figure>
-                <figure class="easter-figure">
+                <figure class="easter-figure" role="button" tabindex="0"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753744948/etagereReptilerie_lcsigh.webp"
+                    data-easter-alt="L'étagère" data-easter-caption="L'Étagère Légendaire">
                     <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1753744948/etagereReptilerie_lcsigh.webp"
                         alt="L'étagère">
                     <figcaption>L'Étagère Légendaire</figcaption>
                 </figure>
                 <!-- Ajoute tes images secrètes ici -->
-                <figure class="easter-figure">
-                    <img src="" alt="">
-                    <figcaption>Photo secrète</figcaption>
+                <figure class="easter-figure easter-figure-zoo" role="button" tabindex="0" data-easter-action="zoo"
+                    data-easter-src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1776065814/digitalZOO_r7wxni.webp"
+                    data-easter-alt="digitalZOO" data-easter-caption="digitalZOO - Identification biomorphique">
+                    <img src="https://res.cloudinary.com/de3xvrrq5/image/upload/v1776065814/digitalZOO_r7wxni.webp"
+                        alt="digitalZOO">
+                    <figcaption>digitalZOO - Identification biomorphique</figcaption>
                 </figure>
                 <figure class="easter-figure">
                     <img src="" alt="">
                     <figcaption>Photo secrète</figcaption>
                 </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="easter-preview-modal" id="easterPreviewModal" aria-hidden="true" role="dialog"
+        aria-label="Aperçu de l'image">
+        <div class="easter-preview-inner">
+            <button class="easter-preview-close" type="button" aria-label="Fermer l'aperçu">&times;</button>
+            <img class="easter-preview-image" id="easterPreviewImage" src="" alt="">
+            <p class="easter-preview-caption" id="easterPreviewCaption"></p>
+        </div>
+    </div>
+    <div class="zoo-modal" id="zooModal" aria-hidden="true" role="dialog" aria-label="Identification digitalZOO">
+        <div class="zoo-modal-inner">
+            <button class="zoo-close" type="button" aria-label="Fermer l'identification">&times;</button>
+            <p class="zoo-eyebrow">digitalZOO · Terminal d'identification</p>
+            <h3 class="zoo-title">Reconnaissance par prénom</h3>
+            <p class="zoo-subtitle">Entrez un prénom pour voir si un profil caché existe dans les archives.</p>
+            <label class="zoo-label" for="zooNameInput">Prénom</label>
+            <div class="zoo-form">
+                <input class="zoo-input" id="zooNameInput" type="text" placeholder="arnaud" autocomplete="off">
+                <button class="zoo-submit" id="zooSubmit" type="button">Valider</button>
+            </div>
+            <div class="zoo-result" id="zooResult" hidden>
+                <img class="zoo-result-image" id="zooResultImage" src="" alt="">
+                <p class="zoo-result-message" id="zooResultMessage"></p>
             </div>
         </div>
     </div>

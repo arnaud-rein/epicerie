@@ -111,10 +111,94 @@
     const logo = document.querySelector('.logo');
     const modal = document.getElementById('easterModal');
     const closeBtn = modal?.querySelector('.easter-close');
-    if (!logo || !modal) return;
+    const previewModal = document.getElementById('easterPreviewModal');
+    const previewImage = document.getElementById('easterPreviewImage');
+    const previewCaption = document.getElementById('easterPreviewCaption');
+    const previewCloseBtn = previewModal?.querySelector('.easter-preview-close');
+    const zooModal = document.getElementById('zooModal');
+    const zooCloseBtn = zooModal?.querySelector('.zoo-close');
+    const zooInput = document.getElementById('zooNameInput');
+    const zooSubmit = document.getElementById('zooSubmit');
+    const zooResult = document.getElementById('zooResult');
+    const zooResultImage = document.getElementById('zooResultImage');
+    const zooResultMessage = document.getElementById('zooResultMessage');
+    const easterFigures = modal?.querySelectorAll('.easter-figure[role="button"]');
+    if (!logo || !modal || !previewModal || !previewImage || !previewCaption || !zooModal || !zooInput || !zooSubmit || !zooResult || !zooResultImage || !zooResultMessage) return;
 
     let clicks = 0;
     let resetTimer;
+    const zooProfiles = {
+        arnaud: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071990/animal_arnaud_kyhkkz.jpg',
+            message: 'Arnaud reconnu'
+        },
+        jeremy: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal_jeremy_jkkc4s.webp',
+            message: 'Jeremy reconnu'
+        },
+        remy: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal_r%C3%A9my_ykvzma.jpg',
+            message: 'Rémy reconnu'
+        },
+        dimos: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071989/animal_dimos_c3agej.jpg',
+            message: 'Dimos reconnu'
+        },
+        valentin: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal-valentin_qquohe.jpg',
+            message: 'Valentin reconnu'
+        },
+        quentin: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal_quentin_zu3etv.webp',
+            message: 'Quentin reconnu'
+        },
+        maximederveaux: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal-maxime-derveaux_1_mokcwd.jpg',
+            message: 'Maxime reconnu'
+        },
+        maximederonne: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal-maxime-deronne_dvdjxn.jpg',
+            message: 'Maxime reconnu'
+        },
+        mateo: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal_mat%C3%A9o_2_uauzuy.jpg',
+            message: 'Matéo reconnu'
+        },
+        antoine: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071489/animal-antoine_1_hiymqv.jpg',
+            message: 'Antoine reconnu'
+        },
+        remybar: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071490/r%C3%A9my_plus_hpbahi.webp',
+            message: 'Rémy plus reconnu'
+        },
+        jeremybar: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071490/jeremy_plus_evuwxj.webp',
+            message: 'Jeremy plus reconnu'
+        },
+        valentinbar: {
+            image: 'https://res.cloudinary.com/de3xvrrq5/image/upload/v1776071490/valentin_plus_jun1df.webp',
+            message: 'Valentin plus reconnu'
+        }
+
+
+    };
+    const invalidIllustration = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+            <defs>
+                <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#25110f"/>
+                    <stop offset="100%" stop-color="#5f1313"/>
+                </linearGradient>
+            </defs>
+            <rect width="960" height="540" rx="28" fill="url(#bg)"/>
+            <rect x="54" y="54" width="852" height="432" rx="20" fill="none" stroke="#ffb3b3" stroke-width="8" stroke-dasharray="18 14"/>
+            <circle cx="480" cy="214" r="86" fill="#170808" stroke="#ff8d8d" stroke-width="12"/>
+            <path d="M436 170l88 88M524 170l-88 88" stroke="#ff8d8d" stroke-width="16" stroke-linecap="round"/>
+            <text x="480" y="368" text-anchor="middle" fill="#fff0f0" font-family="Arial, sans-serif" font-size="54" letter-spacing="6">INVALIDE</text>
+            <text x="480" y="426" text-anchor="middle" fill="#ffb3b3" font-family="Arial, sans-serif" font-size="26" letter-spacing="3">profil introuvable</text>
+        </svg>
+    `)}`;
 
     logo.addEventListener('click', () => {
         clearTimeout(resetTimer);
@@ -137,31 +221,160 @@
         }
     });
 
+    function syncBodyScrollLock() {
+        const hasOpenModal =
+            modal.classList.contains('open') ||
+            previewModal.classList.contains('open') ||
+            zooModal.classList.contains('open');
+        document.body.style.overflow = hasOpenModal ? 'hidden' : '';
+    }
+
+    function normalizeName(value) {
+        return value
+            .trim()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function openPreview(figure) {
+        const src = figure.dataset.easterSrc;
+        if (!src) return;
+
+        previewImage.src = src;
+        previewImage.alt = figure.dataset.easterAlt || '';
+        previewCaption.textContent = figure.dataset.easterCaption || '';
+        previewModal.classList.add('open');
+        previewModal.removeAttribute('aria-hidden');
+        syncBodyScrollLock();
+        previewCloseBtn?.focus();
+    }
+
+    function closePreview(returnFocus = true) {
+        previewModal.classList.remove('open');
+        previewModal.setAttribute('aria-hidden', 'true');
+        previewImage.src = '';
+        previewImage.alt = '';
+        previewCaption.textContent = '';
+        syncBodyScrollLock();
+        if (returnFocus) closeBtn?.focus();
+    }
+
+    function resetZooResult() {
+        zooResult.hidden = true;
+        zooResult.classList.remove('is-invalid');
+        zooResultImage.src = '';
+        zooResultImage.alt = '';
+        zooResultMessage.textContent = '';
+    }
+
+    function openZoo() {
+        resetZooResult();
+        zooInput.value = '';
+        zooModal.classList.add('open');
+        zooModal.removeAttribute('aria-hidden');
+        syncBodyScrollLock();
+        zooInput.focus();
+    }
+
+    function closeZoo(returnFocus = true) {
+        zooModal.classList.remove('open');
+        zooModal.setAttribute('aria-hidden', 'true');
+        resetZooResult();
+        syncBodyScrollLock();
+        if (returnFocus) closeBtn?.focus();
+    }
+
+    function handleZooSubmit() {
+        const normalizedName = normalizeName(zooInput.value);
+        const match = zooProfiles[normalizedName];
+
+        zooResult.hidden = false;
+
+        if (match) {
+            zooResult.classList.remove('is-invalid');
+            zooResultImage.src = match.image;
+            zooResultImage.alt = normalizedName;
+            zooResultMessage.textContent = match.message;
+            return;
+        }
+
+        zooResult.classList.add('is-invalid');
+        zooResultImage.src = invalidIllustration;
+        zooResultImage.alt = 'Invalide';
+        zooResultMessage.textContent = 'Invalide';
+    }
+
     function openEaster() {
         modal.classList.add('open');
         modal.removeAttribute('aria-hidden');
         modal.scrollTop = 0;
-        document.body.style.overflow = 'hidden';
+        syncBodyScrollLock();
         closeBtn?.focus();
     }
 
     function closeEaster() {
+        closePreview(false);
+        closeZoo(false);
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+        syncBodyScrollLock();
         logo.focus();
     }
 
     closeBtn?.addEventListener('click', closeEaster);
+    previewCloseBtn?.addEventListener('click', () => closePreview());
+    zooCloseBtn?.addEventListener('click', () => closeZoo());
+    zooSubmit.addEventListener('click', handleZooSubmit);
+    zooInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleZooSubmit();
+        }
+    });
+
+    easterFigures?.forEach(figure => {
+        const openFigure = () => {
+            if (figure.dataset.easterAction === 'zoo') {
+                openZoo();
+                return;
+            }
+
+            openPreview(figure);
+        };
+
+        figure.addEventListener('click', openFigure);
+        figure.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openFigure();
+            }
+        });
+    });
 
     // Clic en dehors du contenu
     modal.addEventListener('click', e => {
         if (e.target === modal) closeEaster();
     });
+    previewModal.addEventListener('click', e => {
+        if (e.target === previewModal) closePreview();
+    });
+    zooModal.addEventListener('click', e => {
+        if (e.target === zooModal) closeZoo();
+    });
 
     // Touche Échap
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && modal.classList.contains('open')) closeEaster();
+        if (e.key !== 'Escape') return;
+        if (previewModal.classList.contains('open')) {
+            closePreview();
+            return;
+        }
+        if (zooModal.classList.contains('open')) {
+            closeZoo();
+            return;
+        }
+        if (modal.classList.contains('open')) closeEaster();
     });
 })();
 
