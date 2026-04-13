@@ -6,6 +6,7 @@
     const pwForm = document.getElementById('pwForm');
     const pwInput = document.getElementById('pwInput');
     const pwError = document.getElementById('pwError');
+    const pwGifWrap = document.getElementById('pwGifWrap');
     const pwCancel = document.getElementById('pwCancel');
     const classified = document.getElementById('classifiedModal');
     const classClose = classified?.querySelector('.classified-close');
@@ -20,10 +21,9 @@
     }
 
     function forgeAccessCode() {
-        const whisper = ['p', String.fromCharCode(111)];
-        const impact = String.fromCharCode(96 + 3);
-        const mark = `${1 + 2}`;
-        return whisper[0].concat(whisper[1], impact, mark);
+        const num = parseInt("1010011010", 2);
+        const word = atob("ZGlnaXRhbHpvbw==");
+        return num + word;
     }
 
     // ── Triple clic sur © pour ouvrir le terminal ──
@@ -41,6 +41,8 @@
     function openPw() {
         pwInput.value = '';
         pwError.textContent = '';
+        pwGifWrap?.classList.remove('visible');
+        pwGifWrap?.setAttribute('aria-hidden', 'true');
         pwOverlay.classList.add('open');
         pwOverlay.removeAttribute('aria-hidden');
         document.body.style.overflow = 'hidden';
@@ -50,6 +52,8 @@
     function closePw() {
         pwOverlay.classList.remove('open');
         pwOverlay.setAttribute('aria-hidden', 'true');
+        pwGifWrap?.classList.remove('visible');
+        pwGifWrap?.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
 
@@ -63,12 +67,13 @@
             setTimeout(openClassified, 200);
         } else {
             pwError.textContent = '// ACCÈS REFUSÉ — Code invalide';
+            pwGifWrap?.classList.add('visible');
+            pwGifWrap?.setAttribute('aria-hidden', 'false');
             pwBox.classList.remove('shake');
             void pwBox.offsetWidth; // reset animation
             pwBox.classList.add('shake');
             pwInput.value = '';
             pwInput.focus();
-            setTimeout(() => { pwError.textContent = ''; }, 2500);
         }
     });
 
@@ -322,11 +327,47 @@ function initAboutTicker() {
     if (!track) return;
 
     const marketData = [
-        { symbol: 'REPT', label: 'Reptilerie', price: 24.78, changePercent: 8.4, currency: 'EUR' },
-        { symbol: 'MDLN', label: 'Madeleine Prime', price: 5.0, changePercent: 3.2, currency: 'EUR' },
-        { symbol: 'WAHO', label: 'Crepes Wahoo', price: 3.84, changePercent: -1.1, currency: 'EUR' },
-        { symbol: 'GALT', label: 'Galettes St Michel', price: 4.92, changePercent: 1.7, currency: 'EUR' },
-        { symbol: 'RITA', label: 'Gaufres Rita', price: 4.35, changePercent: 0.6, currency: 'EUR' }
+        { symbol: 'REPT', label: 'Reptilerie', price: 37.58, changePercent: 8.4, currency: 'EUR' },
+
+        // 🇫🇷 CAC 40
+        { symbol: 'MC', label: 'LVMH', price: 780.50, changePercent: 1.2, currency: 'EUR' },
+        { symbol: 'TTE', label: 'TotalEnergies', price: 64.20, changePercent: -0.8, currency: 'EUR' },
+        { symbol: 'AI', label: 'Air Liquide', price: 175.30, changePercent: 0.6, currency: 'EUR' },
+        { symbol: 'SGO', label: 'Saint-Gobain', price: 72.80, changePercent: 1.5, currency: 'EUR' },
+        { symbol: 'OR', label: 'L’Oréal', price: 430.10, changePercent: -0.3, currency: 'EUR' },
+        { symbol: 'BNP', label: 'BNP Paribas', price: 66.40, changePercent: 0.9, currency: 'EUR' },
+        { symbol: 'SAN', label: 'Sanofi', price: 92.15, changePercent: -0.5, currency: 'EUR' },
+
+        // 🇺🇸 Tech US
+        { symbol: 'NVDA', label: 'NVIDIA', price: 890.00, changePercent: 2.4, currency: 'USD' },
+        { symbol: 'AAPL', label: 'Apple', price: 175.60, changePercent: 0.7, currency: 'USD' },
+        { symbol: 'MSFT', label: 'Microsoft', price: 420.30, changePercent: 1.1, currency: 'USD' },
+        { symbol: 'GOOGL', label: 'Alphabet', price: 155.40, changePercent: -0.2, currency: 'USD' },
+        { symbol: 'AMZN', label: 'Amazon', price: 185.90, changePercent: 0.4, currency: 'USD' },
+        { symbol: 'META', label: 'Meta', price: 510.20, changePercent: 1.8, currency: 'USD' },
+        { symbol: 'TSLA', label: 'Tesla', price: 170.80, changePercent: -1.5, currency: 'USD' },
+
+        // 🏦 Finance / autres US
+        { symbol: 'JPM', label: 'JPMorgan Chase', price: 195.30, changePercent: 0.5, currency: 'USD' },
+        { symbol: 'V', label: 'Visa', price: 275.10, changePercent: 0.9, currency: 'USD' },
+        { symbol: 'WMT', label: 'Walmart', price: 60.20, changePercent: 0.3, currency: 'USD' },
+
+        // 📊 Indices
+        { symbol: 'CAC40', label: 'CAC 40', price: 8050.00, changePercent: 0.6, currency: 'EUR' },
+        { symbol: 'SP500', label: 'S&P 500', price: 5200.00, changePercent: 0.8, currency: 'USD' },
+        { symbol: 'NASDAQ', label: 'NASDAQ 100', price: 18200.00, changePercent: 1.2, currency: 'USD' },
+        { symbol: 'DAX', label: 'DAX', price: 18250.00, changePercent: 0.4, currency: 'EUR' },
+
+        // 📦 ETF connus
+        { symbol: 'CW8', label: 'Amundi MSCI World', price: 460.00, changePercent: 0.7, currency: 'EUR' },
+        { symbol: 'EWLD', label: 'Lyxor MSCI World', price: 32.50, changePercent: 0.6, currency: 'EUR' },
+        { symbol: 'SPY', label: 'SPDR S&P 500 ETF', price: 520.00, changePercent: 0.8, currency: 'USD' },
+        { symbol: 'QQQ', label: 'Invesco Nasdaq ETF', price: 445.00, changePercent: 1.1, currency: 'USD' },
+        { symbol: 'VEA', label: 'Vanguard FTSE Dev', price: 50.30, changePercent: 0.5, currency: 'USD' },
+
+        // 🪙 Bonus (un peu crypto pour le fun)
+        { symbol: 'BTC', label: 'Bitcoin', price: 68000.00, changePercent: 2.1, currency: 'USD' },
+        { symbol: 'ETH', label: 'Ethereum', price: 3200.00, changePercent: 1.7, currency: 'USD' }
     ];
 
     function formatPrice(value, currency) {
