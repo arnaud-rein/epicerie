@@ -1969,7 +1969,7 @@ footer p:last-child {
     border-top: 1px solid rgba(200, 147, 62, 0.1);
 }
 
-.easter-figure-zoo::after {
+/* .easter-figure-zoo::after {
     content: 'scanner';
     position: absolute;
     top: 0.9rem;
@@ -1982,7 +1982,7 @@ footer p:last-child {
     font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-}
+} */
 
 .easter-preview-modal,
 .zoo-modal {
